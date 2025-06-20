@@ -74,53 +74,6 @@ class DigitalTwinController:
         """Inicia o movimento do conveyor para a esquerda (atuador Q1_7)."""
         return self._set_actuator("Q1_7", True)
 
-    # --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---
-    # --- ESTE CÓDIGO NÃO ESTARÁ AQUI NA VERSÃO FINAL !!!!!! ---
-    # --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---
-    def move_conveyor_right(self):
-        """Inicia o movimento do conveyor para a direita (atuador Q1_6)."""
-        return self._set_actuator("Q1_6", True)
-
-    def stop_conveyor(self):
-        """Para o movimento do conveyor (desliga Q1_6 e Q1_7)."""
-        res1 = self._set_actuator("Q1_6", False)
-        res2 = self._set_actuator("Q1_7", False)
-        return res1 and res2
-
-    def move_punch_down(self):
-        """Inicia o movimento do punch para baixo (atuador Q1_4)."""
-        return self._set_actuator("Q1_4", True)
-
-    def move_punch_up(self):
-        """Inicia o movimento do punch para cima (atuador Q1_5)."""
-        return self._set_actuator("Q1_5", True)
-
-    def stop_punch(self):
-        """Para o movimento do punch (desliga Q1_4 e Q1_5)."""
-        res1 = self._set_actuator("Q1_4", False)
-        res2 = self._set_actuator("Q1_5", False)
-        return res1 and res2
-
-    # --- Leitura de Alto Nível de Sensores ---
-    def is_punch_down_sensor_active(self):  # Sensor I0_1
-        """Verifica se o sensor do punch em baixo está ativo."""
-        return self._get_bit("I0_1")
-
-    def is_punch_up_sensor_active(self):  # Sensor I0_2
-        """Verifica se o sensor do punch em cima está ativo."""
-        return self._get_bit("I0_2")
-
-    def is_conveyor_right_limit_active(self):  # Sensor I0_3
-        """Verifica se o sensor de limite direito do conveyor está ativo."""
-        return not self._get_bit("I0_3")
-
-    def is_conveyor_left_limit_active(self):  # Sensor I0_4
-        """Verifica se o sensor de limite esquerdo do conveyor está ativo."""
-        return not self._get_bit("I0_4")
-    # --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---
-    # --- FIM DO ESTE CÓDIGO NÃO ESTARÁ AQUI NA VERSÃO FINAL !!!!!! ---
-    # --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---
-
     def wait_seconds(self, duration_seconds):
         """Espera 'duration_seconds' segundos."""
         time.sleep(duration_seconds)
