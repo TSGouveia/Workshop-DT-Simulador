@@ -70,9 +70,15 @@ class DigitalTwinController:
         return response_text == "PONG"
 
     # --- Comandos de Alto Nível para Atuadores ---
-    def move_conveyor_left(self):
-        """Inicia o movimento do conveyor para a esquerda (atuador Q1_7)."""
-        return self._set_actuator("Q1_7", True)
+    def move_conveyor_right(self):
+        """Inicia o movimento do conveyor para a direita (atuador Q1_6)."""
+        return self._set_actuator("Q1_6", True)
+
+    def stop_conveyor(self):
+        """Para o movimento do conveyor (desliga Q1_6 e Q1_7)."""
+        res1 = self._set_actuator("Q1_6", False)
+        res2 = self._set_actuator("Q1_7", False)
+        return res1 and res2
 
     def wait_seconds(self, duration_seconds):
         """Espera 'duration_seconds' segundos."""
@@ -83,10 +89,14 @@ class DigitalTwinController:
 # ---------------------------------------------------------------------------
 def run_example_sequence(dtc):
     while True:
-        # Conveyor para a Esquerda
-        dtc.move_conveyor_left()
-        dtc.wait_seconds(1)
-
+        # Conveyor para a Direita
+        dtc.move_conveyor_right()
+        # Espera 5 segundos
+        dtc.wait_seconds(5)
+        # Para o conveyor
+        dtc.stop_conveyor()
+        #Espera 5 segundos
+        dtc.wait_seconds(5)
 
 # ---------------------------------------------------------------------------
 # Ponto de Entrada Principal do Script
